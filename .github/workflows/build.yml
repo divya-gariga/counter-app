@@ -14,11 +14,11 @@ jobs:
         with:
           node-version: '16.x'
       - name: Publish to Github Packages Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v4
         with:
           name: my_github_username/my_repository_name/my_image_name
           registry: ghcr.io
-          username: ${{ secrets.GITHUB_USERNAME }}
+          username: divya-gariga
           password: ${{ secrets.GITHUB_TOKEN }}
           dockerfile: Dockerfile
           tags: latest
