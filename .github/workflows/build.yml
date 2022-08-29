@@ -16,7 +16,7 @@ jobs:
       - name: Publish to Github Packages Registry
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
-          name: my_github_username/my_repository_name/my_image_name
+          name: divya-gariga/counter-app/counterapp
           registry: ghcr.io
           username: divya-gariga
           password: ${{ secrets.GITHUB_TOKEN }}
