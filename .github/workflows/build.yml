@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - release
-env:
-  REGISTRY: ghcr.io
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,10 +12,10 @@ jobs:
       - name: npm install
         run: npm install
       - name: docker login to github container registry
-        run: docker login ${{ env.REGISTRY }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
+        run: docker login ${{ secrets.REGISTRY }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
       - name: docker build
-        run: docker build . -t ${{ env.REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/counter-app:latest
+        run: docker build . -t ${{ secrets.REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/counting-app:latest
       - name: docker push
-        run: docker push ${{ env.REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/counter-app:latest
+        run: docker push ${{ secrets.REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/counting-app:latest
       - name: run test cases
         run: npm test
