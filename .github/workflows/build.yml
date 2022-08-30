@@ -4,13 +4,15 @@ on:
   push:
     branches:
       - release
+env:
+  REGISTRY: ghcr.io
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: docker login to github container registry
-        run: docker login ${{ env.GITHUB_PACKAGE_URL }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
+        run: docker login ${{ env.REGISTRY }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
       - name: docker build
         run: docker build . -t ghcr.io/divya-gariga/counter-app:latest
       - name: docker push
