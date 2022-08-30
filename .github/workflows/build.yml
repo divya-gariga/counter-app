@@ -14,8 +14,8 @@ jobs:
       - name: docker login to github container registry
         run: docker login ${{ secrets.REGISTRY }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
       - name: docker build
-        run: docker build . -t ${{ secrets.REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/counting-app:latest
+        run: docker build . -t ${{ secrets.REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/counter-app/react-counting-app:latest
       - name: docker push
-        run: docker push ${{ secrets.REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/counting-app:latest
+        run: docker push ${{ secrets.REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/counter-app/react-counting-app:latest
       - name: run test cases
         run: npm test
