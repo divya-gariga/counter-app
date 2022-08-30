@@ -11,11 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: npm install
+        run: npm install
       - name: docker login to github container registry
         run: docker login ${{ env.REGISTRY }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
       - name: docker build
-        run: docker build . -t ghcr.io/divya-gariga/counter-app:latest
+        run: docker build . -t ${{ env.REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/counter-app:latest
       - name: docker push
-        run: docker push ghcr.io/divya-gariga/counter-app:latest
+        run: docker push ${{ env.REGISTRY }}/${{ secrets.REGISTRY_USERNAME }}/counter-app:latest
       - name: run test cases
         run: npm test
