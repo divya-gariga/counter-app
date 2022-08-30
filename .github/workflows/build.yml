@@ -8,23 +8,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-      - name: npm install
-      - run : npm install
-      - name: Publish to Github Packages Registry
-        uses: elgohr/Publish-Docker-Github-Action@v4
-        with:
-          name: divya-gariga/counter-app/counterapp
-          registry: ghcr.io
-          username: divya-gariga
-          password: ${{ secrets.GITHUB_TOKEN }}
-          dockerfile: Dockerfile
-          tags: latest
-      - name: Install npm
-        run: npm install
+      - uses: actions/checkout@v2
+      - name: docker login to github container registry
+        run: docker login ${{ env.GITHUB_PACKAGE_URL }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
+      - name: docker build
+        run: docker build . -t ghcr.io/divya-gariga/counter-app:latest
+      - name: docker push
+        run: docker push ghcr.io/divya-gariga/counter-app:latest
       - name: run test cases
         run: npm test
